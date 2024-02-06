@@ -7,7 +7,7 @@ const app = express();
 
 // const response = await fetch("https://example.com"); // sends GET request
 
-const home = "/listbooks"
+const home = "/books"
 
 let bookList = [];
 let currentID = 0;
@@ -85,7 +85,7 @@ app.get("/books/search", (request, response) => {
 
 // Delete
 
-app.delete("/books/remove" , (request, response) => {
+app.delete("/books" , (request, response) => {
     const removalList = findMatching(request.body);
 
     removeFromList(removalList);
