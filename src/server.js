@@ -12,17 +12,6 @@ const home = "/listbooks"
 let bookList = [];
 let currentID = 0;
 
-app.use(express.json()); // Allows use of json data.
-
-app.get("/books", (request, response) => {
-    response.send({message: "success", books: bookList});
-});
-
-app.get("/books/getrandom", (request, response) => {
-    const randomIndex = Math.floor(Math.random() * bookList.length);
-    response.send(bookList[randomIndex]);
-});
-
 const findMatching = (queries) => {
     const returnList = []
 
@@ -56,6 +45,17 @@ const removeFromList = (items) => {
 
     console.log(bookList);
 }
+
+app.use(express.json()); // Allows use of json data.
+
+app.get("/books", (request, response) => {
+    response.send({message: "success", books: bookList});
+});
+
+app.get("/books/getrandom", (request, response) => {
+    const randomIndex = Math.floor(Math.random() * bookList.length);
+    response.send(bookList[randomIndex]);
+});
 
 app.delete("/books/remove" , (request, response) => {
     const removalList = findMatching(request.body);
