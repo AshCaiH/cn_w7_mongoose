@@ -10,6 +10,7 @@ const app = express();
 const home = "/listbooks"
 
 let bookList = [];
+let currentID = 0;
 
 app.use(express.json()); // Allows use of json data.
 
@@ -22,38 +23,58 @@ app.get("/books/getrandom", (request, response) => {
     response.send(bookList[randomIndex]);
 });
 
-app.delete("/books/remove" , (request, response) => {
-    let removalList = [];
+const findMatching = (queries) => {
+    const returnList = []
 
-    const removeItems = (criteria) => {
-        // If no criteria are provided, skip this function.
-        if (Object.keys(criteria).length == 0) return;
-
-        bookList = bookList.filter((item) => {
+    for (const criteria of queries) {
+        bookList.map((item) => {
             let matchingCriteria = 0;
 
+            // Compare the criteria against each book's properties.
             for (const criterion in criteria) {
                 if (item[criterion] == criteria[criterion]) matchingCriteria++;
                 else break;
             }
 
-            // If not all criteria match, keep this book.
-            if (matchingCriteria != Object.keys(criteria).length) return item;
-            else removalList.push(item);
+            // If all critera match, add the book to the list
+            if (matchingCriteria == Object.keys(criteria).length) returnList.push(item);
         });
     }
 
-    for (const criteria of request.body) removeItems(criteria);
+    return returnList;
+}
+
+const removeFromList = (items) => {
+    for (const item of items) {
+        const index = bookList.findIndex((book) => {
+            return book.id == item.id;
+        });
+
+        console.log(index);
+        bookList.splice(index, 1);
+    }
+
+    console.log(bookList);
+}
+
+app.delete("/books/remove" , (request, response) => {
+    const removalList = findMatching(request.body);
+
+    removeFromList(removalList);
 
     response.send("Removed the following items: \n\n" + removalList.map((item) => {
         return item.title + " "
-    }));
+    }).join("\n"));
 });
 
 app.post("/books", (request, response) => {
-    for (item of request.body) bookList.push(item);
+    for (item of request.body) {
+        item.id = currentID;
+        currentID++;
+        bookList.push(item);
+    }
 
-    response.send({ message: "success", fakeArr: bookList });
+    response.send({ message: "success", bookList: bookList });
 });
 
 app.listen(port, () => {
