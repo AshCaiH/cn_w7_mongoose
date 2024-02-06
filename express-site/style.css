@@ -1,0 +1,18 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: blanchedalmond;
+}
+
+pre {
+    padding: 8px;
+}
+
+code {
+    padding: 4px;
+}
+
+pre, code {
+    
+    border: 1px solid black;
+    background-color: rgba(255,255,255,0.5);
+}
