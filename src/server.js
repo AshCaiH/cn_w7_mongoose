@@ -57,6 +57,15 @@ app.get("/books/getrandom", (request, response) => {
     response.send(bookList[randomIndex]);
 });
 
+app.get("/books/search", (request, response) => {
+    const matches = findMatching(request.body);
+
+    if (matches.length == 0) response.send("No books found with that criteria");
+    else response.send("Found the following items: \n\n" + matches.map((item) => {
+        return item.title + " "
+    }).join("\n"));
+});
+
 app.delete("/books/remove" , (request, response) => {
     const removalList = findMatching(request.body);
 
