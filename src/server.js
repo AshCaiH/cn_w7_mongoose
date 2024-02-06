@@ -15,6 +15,8 @@ let currentID = 0;
 const findMatching = (queries) => {
     const returnList = []
 
+    console.log(queries);
+
     for (const criteria of queries) {
         bookList.map((item) => {
             let matchingCriteria = 0;
@@ -63,6 +65,7 @@ app.post("/books", (request, response) => {
 // Read
 
 app.get("/books", (request, response) => {
+    console.log(request.body);
     response.send({message: "success", books: bookList});
 });
 
@@ -82,6 +85,39 @@ app.get("/books/search", (request, response) => {
 
 // Update
 
+// Enter in the following format
+/*
+{
+  "search": {
+    "key": "value"
+  },
+  "correction" : {
+    "key": "new value"
+  }
+}
+*/
+
+app.put("/books", (request, response) => {
+
+    const matching = findMatching([request.body.search]);
+    const changes = []
+
+    console.log(matching);
+
+    if (matching.length > 0) {
+        for (const key in request.body.correction) {
+            matching.map((item) => {
+                changes.push([item[key], request.body.correction[key]]);
+                item[key] = request.body.correction[key];
+            });
+        }
+    }
+
+    response.send(changes.map((item) => {
+        return `"${item[0]}" changed to "${item[1]}"`
+    }).join("\n"));
+
+});
 
 // Delete
 
