@@ -48,6 +48,20 @@ const removeFromList = (items) => {
 
 app.use(express.json()); // Allows use of json data.
 
+// Create
+
+app.post("/books", (request, response) => {
+    for (item of request.body) {
+        item.id = currentID;
+        currentID++;
+        bookList.push(item);
+    }
+
+    response.send({ message: "success", bookList: bookList });
+});
+
+// Read
+
 app.get("/books", (request, response) => {
     response.send({message: "success", books: bookList});
 });
@@ -66,6 +80,11 @@ app.get("/books/search", (request, response) => {
     }).join("\n"));
 });
 
+// Update
+
+
+// Delete
+
 app.delete("/books/remove" , (request, response) => {
     const removalList = findMatching(request.body);
 
@@ -76,15 +95,6 @@ app.delete("/books/remove" , (request, response) => {
     }).join("\n"));
 });
 
-app.post("/books", (request, response) => {
-    for (item of request.body) {
-        item.id = currentID;
-        currentID++;
-        bookList.push(item);
-    }
-
-    response.send({ message: "success", bookList: bookList });
-});
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
