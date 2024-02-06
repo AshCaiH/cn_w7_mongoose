@@ -3,10 +3,7 @@ const express = require("express");
 const port = 5001;
 const app = express();
 
-const home = "/express-site"
-
-app.use("/example", express.static("example"));
-app.use(home, express.static("express-site"));
+const home = "/"
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
