@@ -5,10 +5,6 @@ require("dotenv").config();
 const port = 5001;
 const app = express();
 
-// HTTP Verbs - GET, POST, PUT, DELETE
-
-// const response = await fetch("https://example.com"); // sends GET request
-
 const home = "/books"
 
 app.use(express.json()); // Allows use of json data.
