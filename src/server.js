@@ -11,9 +11,6 @@ const app = express();
 
 const home = "/books"
 
-let bookList = [];
-let currentID = 0;
-
 const findMatching = (queries) => {
     const returnList = []
 
@@ -92,7 +89,7 @@ app.post("/books", async (request, response) => {
         }
     }
 
-    response.send({ message: `${request.body.length - duplicates.length}/${request.body.length} items added to database.`, bookList: bookList });
+    response.send({ message: `${request.body.length - duplicates.length}/${request.body.length} items added to database.` });
 })
 
 // Read
