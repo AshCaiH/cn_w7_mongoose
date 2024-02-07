@@ -82,7 +82,13 @@ app.get("/books/search", async (request, response) => {
 
 // Update
 
-app.put("/books", (request, response) => {});
+app.put("/books", async (request, response) => {
+    const targets = await Book.find(request.body.target);
+
+    await Book.updateMany(request.body.target, request.body.correction);
+
+    response.send({message: "Update successful", targets:targets});
+});
 
 
 // Delete
