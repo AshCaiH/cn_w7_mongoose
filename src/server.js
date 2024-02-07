@@ -53,9 +53,7 @@ const removeFromList = (items) => {
 app.use(express.json()); // Allows use of json data.
 
 const connection = async () => {
-    await mongoose.connect(
-        process.env.MONGO_URI
-    );
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("DB connection is working");
 }
 
@@ -83,7 +81,19 @@ const Book = mongoose.model("Book", bookSchema);
 
 // Create
 
-app.post("/books", (request, response) => {});
+app.post("/books", async (request, response) => {
+    const duplicates = [];
+
+    for (item of request.body) {
+        try {
+            await new Book(item).save();
+        } catch (err) {
+            duplicates.push(item.title);
+        }
+    }
+
+    response.send({ message: `${request.body.length - duplicates.length}/${request.body.length} items added to database.`, bookList: bookList });
+})
 
 // Read
 
