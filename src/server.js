@@ -50,86 +50,28 @@ const removeFromList = (items) => {
 
 app.use(express.json()); // Allows use of json data.
 
+
 // Create
 
-app.post("/books", (request, response) => {
-    for (item of request.body) {
-        item.id = currentID;
-        currentID++;
-        bookList.push(item);
-    }
-
-    response.send({ message: "success", bookList: bookList });
-});
+app.post("/books", (request, response) => {});
 
 // Read
 
-app.get("/books", (request, response) => {
-    console.log(request.body);
-    response.send({message: "success", books: bookList});
-});
+app.get("/books", (request, response) => {});
 
-app.get("/books/getrandom", (request, response) => {
-    const randomIndex = Math.floor(Math.random() * bookList.length);
-    response.send(bookList[randomIndex]);
-});
+app.get("/books/getrandom", (request, response) => {});
 
-app.get("/books/search", (request, response) => {
-    const matches = findMatching(request.body);
+app.get("/books/search", (request, response) => {});
 
-    if (matches.length == 0) response.send("No books found with that criteria");
-    else response.send("Found the following items: \n\n" + matches.map((item) => {
-        return item.title + " "
-    }).join("\n"));
-});
 
 // Update
 
-// Enter in the following format
-/*
-{
-  "search": {
-    "key": "value"
-  },
-  "correction" : {
-    "key": "new value"
-  }
-}
-*/
+app.put("/books", (request, response) => {});
 
-app.put("/books", (request, response) => {
-
-    const matching = findMatching([request.body.search]);
-    const changes = []
-
-    console.log(matching);
-
-    if (matching.length > 0) {
-        for (const key in request.body.correction) {
-            matching.map((item) => {
-                changes.push([item[key], request.body.correction[key]]);
-                item[key] = request.body.correction[key];
-            });
-        }
-    }
-
-    response.send(changes.map((item) => {
-        return `"${item[0]}" changed to "${item[1]}"`
-    }).join("\n"));
-
-});
 
 // Delete
 
-app.delete("/books" , (request, response) => {
-    const removalList = findMatching(request.body);
-
-    removeFromList(removalList);
-
-    response.send("Removed the following items: \n\n" + removalList.map((item) => {
-        return item.title + " "
-    }).join("\n"));
-});
+app.delete("/books" , (request, response) => {});
 
 
 app.listen(port, () => {
