@@ -102,7 +102,12 @@ app.get("/books", async (request, response) => {
     response.send(books);
 });
 
-app.get("/books/getrandom", (request, response) => {});
+app.get("/books/getrandom", async (request, response) => {
+    const books = await Book.find({});
+    const randomInt = Math.floor(Math.random() * books.length); 
+
+    response.send(books[randomInt]);
+});
 
 app.get("/books/search", (request, response) => {});
 
