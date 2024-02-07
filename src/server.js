@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 
 const port = 5001;
 const app = express();
@@ -50,6 +51,34 @@ const removeFromList = (items) => {
 
 app.use(express.json()); // Allows use of json data.
 
+const connection = async () => {
+    await mongoose.connect(
+        
+    );
+    console.log("DB connection is working");
+}
+
+connection();
+
+const bookSchema = new mongoose.Schema({
+    title: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    author: {
+        type: String,
+        required: true,
+        unique: false,
+    },
+    genre: {
+        type: String,
+        required: false,
+        unique: false,
+    },
+})
+
+const Book = mongoose.model("Book", bookSchema);
 
 // Create
 
