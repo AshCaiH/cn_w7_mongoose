@@ -79,17 +79,19 @@ const Book = mongoose.model("Book", bookSchema);
 // Create
 
 app.post("/books", async (request, response) => {
-    const duplicates = [];
+    const successful = [];
 
     for (item of request.body) {
         try {
-            await new Book(item).save();
+            const book = new Book(item);
+            await book.save();
+            successful.push(book);
         } catch (err) {
-            duplicates.push(item.title);
+            console.error("item.title" + " already in database");
         }
     }
 
-    response.send({ message: `${request.body.length - duplicates.length}/${request.body.length} items added to database.` });
+    response.send({ message: `${successful.length}/${request.body.length} items added to database.`, books:successful });
 })
 
 // Read
