@@ -96,7 +96,11 @@ app.post("/books", async (request, response) => {
 
 // Read
 
-app.get("/books", (request, response) => {});
+app.get("/books", async (request, response) => {
+    const books = await Book.find({});
+
+    response.send(books);
+});
 
 app.get("/books/getrandom", (request, response) => {});
 
