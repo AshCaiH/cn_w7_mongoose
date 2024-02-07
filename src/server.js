@@ -11,19 +11,6 @@ const app = express();
 
 const home = "/books"
 
-const removeFromList = (items) => {
-    for (const item of items) {
-        const index = bookList.findIndex((book) => {
-            return book.id == item.id;
-        });
-
-        console.log(index);
-        bookList.splice(index, 1);
-    }
-
-    console.log(bookList);
-}
-
 app.use(express.json()); // Allows use of json data.
 
 const connection = async () => {
