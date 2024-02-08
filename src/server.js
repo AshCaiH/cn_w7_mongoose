@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const connection = require("./db/connection");
+const Book = require("./books/model");
 
 const port = 5001;
 const app = express();
@@ -12,26 +13,6 @@ const home = "/books"
 app.use(express.json()); // Allows use of json data.
 
 connection();
-
-const bookSchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true,
-        unique: true,
-    },
-    author: {
-        type: String,
-        required: true,
-        unique: false,
-    },
-    genre: {
-        type: String,
-        required: false,
-        unique: false,
-    },
-})
-
-const Book = mongoose.model("Book", bookSchema);
 
 // Create
 
