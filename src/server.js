@@ -2,17 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+const connection = require("./db/connection");
+
 const port = 5001;
 const app = express();
 
 const home = "/books"
 
 app.use(express.json()); // Allows use of json data.
-
-const connection = async () => {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log("DB connection is working");
-}
 
 connection();
 
