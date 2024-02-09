@@ -1,31 +1,40 @@
 const { Router } = require("express");
 const bookRouter = Router();
-const {addBooks, getBooks, getRandomBook, findBooks, updateBooks, removeBooks} = require("./controllers");
-
-const Book = require("./model");
+const controllers = require("./controllers");
 
 // Create
 
-bookRouter.post("/books", addBooks)
+// Adds a book to the database.
+bookRouter.post("/books", controllers.addBooks)
 
 
 // Read
 
-bookRouter.get("/books", getBooks);
+// Returns the data of all books.
+bookRouter.get("/books", controllers.getBooks);
 
-bookRouter.get("/books/getrandom", getRandomBook);
+// Returns the data on a randomly chosen book
+bookRouter.get("/books/getrandom", controllers.getRandomBook);
 
-bookRouter.get("/books/search", findBooks);
+// Returns a list of the distinct values of a given property.
+// eg: books/author/ lists all authors.
+bookRouter.get("/books/:property", controllers.listValues);
+
+// Returns a book based searching for a given property and value.
+// eg: books/title/the returns any books with titles containing the word "the"
+bookRouter.get("/books/:property/:value", controllers.findBooks);
 
 
 // Update
 
-bookRouter.put("/books", updateBooks);
+// Updates the data stored on books matching the search criteria.
+bookRouter.put("/books", controllers.updateBooks);
 
 
 // Delete
 
-bookRouter.delete("/books", removeBooks);
+// Removes books matching the search criteria from the database.
+bookRouter.delete("/books", controllers.removeBooks);
 
 
 module.exports = bookRouter;
