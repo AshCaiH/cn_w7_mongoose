@@ -28,6 +28,7 @@ module.exports = {
 
         response.send(books);
     },
+    
 
     getRandomBook: async (request, response) => {
         const books = await Book.find({});
@@ -35,6 +36,7 @@ module.exports = {
 
         response.send(books[randomInt]);
     },
+
 
     findBooks: async (request, response) => {
         const query = {}
@@ -51,6 +53,7 @@ module.exports = {
 
         response.send(books);
     },
+
 
     listValues: async (request, response) => {
         response.send(
