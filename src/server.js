@@ -1,11 +1,9 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
 
 require("dotenv").config();
 
 const connection = require("./db/connection");
-const Book = require("./books/model");
 const bookRouter = require("./books/routes");
 
 const port = 5001;
