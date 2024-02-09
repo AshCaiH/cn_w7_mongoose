@@ -1,5 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
+
 require("dotenv").config();
 
 const connection = require("./db/connection");
@@ -11,7 +13,7 @@ const app = express();
 
 const home = "/books"
 
-app.use(express.json()); // Allows use of json data.
+app.use(express.json(), cors()); // Allows use of json data.
 
 connection();
 
