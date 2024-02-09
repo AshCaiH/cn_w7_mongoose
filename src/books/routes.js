@@ -1,33 +1,31 @@
 const { Router } = require("express");
 const bookRouter = Router();
-const {addBooks, getBooks, getRandomBook, findBooks, updateBooks, removeBooks, listValues} = require("./controllers");
-
-const Book = require("./model");
+const controllers = require("./controllers");
 
 // Create
 
-bookRouter.post("/books", addBooks)
+bookRouter.post("/books", controllers.addBooks)
 
 
 // Read
 
-bookRouter.get("/books", getBooks);
+bookRouter.get("/books", controllers.getBooks);
 
-bookRouter.get("/books/getrandom", getRandomBook);
+bookRouter.get("/books/getrandom", controllers.getRandomBook);
 
 // bookRouter.get("/books/search", findBooks);
 
-bookRouter.get("/books/:property/:value", findBooks);
-
+bookRouter.get("/books/:property/", controllers.listValues);
+bookRouter.get("/books/:property/:value", controllers.findBooks);
 
 // Update
 
-bookRouter.put("/books", updateBooks);
+bookRouter.put("/books", controllers.updateBooks);
 
 
 // Delete
 
-bookRouter.delete("/books", removeBooks);
+bookRouter.delete("/books", controllers.removeBooks);
 
 
 module.exports = bookRouter;
