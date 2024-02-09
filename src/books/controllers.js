@@ -46,9 +46,6 @@ module.exports = {
             $options: 'is' 
             }
 
-        console.log(request.params["property"])
-        console.log(query);
-
         const books = await Book.find(query);
 
         response.send(books);
