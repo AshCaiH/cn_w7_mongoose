@@ -28,7 +28,7 @@ module.exports = {
 
         response.send(books);
     },
-    
+
 
     getRandomBook: async (request, response) => {
         const books = await Book.find({});
@@ -56,8 +56,8 @@ module.exports = {
 
 
     listValues: async (request, response) => {
-        response.send(
-            Book.distinct(request.params["property"])
+        await response.send(
+            await Book.distinct(request.params["property"])
         )
     },
 
