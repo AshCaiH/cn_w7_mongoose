@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const bookRouter = Router();
-const {addBooks, getBooks, getRandomBook, findBooks, updateBooks, removeBooks} = require("./controllers");
+const {addBooks, getBooks, getRandomBook, findBooks, updateBooks, removeBooks, listValues} = require("./controllers");
 
 const Book = require("./model");
 
@@ -15,7 +15,9 @@ bookRouter.get("/books", getBooks);
 
 bookRouter.get("/books/getrandom", getRandomBook);
 
-bookRouter.get("/books/search", findBooks);
+// bookRouter.get("/books/search", findBooks);
+
+bookRouter.get("/books/:property/:value", findBooks);
 
 
 // Update

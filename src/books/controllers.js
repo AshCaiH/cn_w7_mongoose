@@ -36,9 +36,26 @@ const getRandomBook = async (request, response) => {
 }
 
 const findBooks = async (request, response) => {
-    const books = await Book.find(request.body);
+    const query = {}
+
+    // 
+    query[request.params["property"]] = {
+        '$regex': request.params["value"],
+         $options: 'is' 
+        }
+
+    console.log(request.params["property"])
+    console.log(query);
+
+    const books = await Book.find(query);
 
     response.send(books);
+}
+
+const listValues = async (request, response) => {
+    response.send(
+        Book.distinct(request.params["property"])
+    )
 }
 
 
@@ -72,5 +89,6 @@ module.exports = {
     getRandomBook: getRandomBook,
     findBooks: findBooks,
     updateBooks: updateBooks,
-    removeBooks: removeBooks
+    removeBooks: removeBooks,
+    listValues: listValues,
 }
