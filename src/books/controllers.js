@@ -1,9 +1,9 @@
 const Book = require("./model");
 
-
-// Create
-
 module.exports = {
+
+    // Create
+
     addBooks: async (request, response) => {
         const successful = [];
 
@@ -39,7 +39,6 @@ module.exports = {
     findBooks: async (request, response) => {
         const query = {}
 
-        // 
         query[request.params["property"]] = {
             '$regex': request.params["value"],
             $options: 'is' 
