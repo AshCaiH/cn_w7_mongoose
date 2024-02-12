@@ -79,4 +79,11 @@ module.exports = {
 
         response.send({message: "Deletion successful", books:books});
     },
+    
+
+    removeAllBooks: async (request, response) => {
+        await Book.deleteMany({})
+
+        response.send({message: "All books deleted"});
+    },
 }

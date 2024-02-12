@@ -35,6 +35,7 @@ bookRouter.put("/books", controllers.updateBooks);
 
 // Removes books matching the search criteria from the database.
 bookRouter.delete("/books", controllers.removeBooks);
+bookRouter.delete("/books/deleteall", controllers.removeAllBooks);
 
 
 module.exports = bookRouter;
